@@ -19,7 +19,8 @@ def myDemo():
 
     print "For the date: %s" % (myCDFData.getTime(0).isoformat())
 
-    # First, print all latitudes
+    # First, indent the data with a tab, then print all latitudes.
+    print "\t\t",
     for i in xrange(72):
         print "%f\t" % (myCDFData.getLatitude(i)),
 

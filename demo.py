@@ -21,7 +21,7 @@ def myDemo():
 
     # First, indent the data with a tab, then print all latitudes.
     print "\t\t",
-    for i in xrange(72):
+    for i in xrange(73):
         print "%f\t" % (myCDFData.getLatitude(i)),
 
     # Now print a newline.
@@ -31,7 +31,7 @@ def myDemo():
     for j in xrange(144):
         # Print the longitude.
         print "%f\t" % (myCDFData.getLongitude(j)),
-        for k in xrange(72):
+        for k in xrange(73):
             # Print each air temperature.
             print "%f\t" % (myCDFData.getAirTemperature(0)[k][j]),
         # End the row by printing a newline.

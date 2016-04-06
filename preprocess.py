@@ -12,6 +12,7 @@ def preprocess():
         loadedData = LoadCDFData(directory + 'air.sig995.' + str(year) + '.nc')
         cdfData.append(loadedData)
 
+    """
     for day in xrange(0, 365 + 1):
         if day == 59:
             #Skip leap year day February 29.
@@ -21,6 +22,22 @@ def preprocess():
             writer = csv.writer(myFile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
             for lat in xrange(0, 72 + 1):
                 for lon in xrange(0, 143 + 1):
+                    row = []
+                    for year in xrange(0, (dateMax - dateMin) + 1):
+                        row.append(cdfData[year].getAirTemperature(day)[lat][lon])
+                    writer.writerow(row)
+    """
+    for lat in xrange(0, 72 + 1):
+        for lon in xrange(0, 143 + 1):
+
+            with open(outputDir + 'lat' + str(lat) + 'lon' + str(lon) + '.csv', 'w+') as myFile:
+                writer = csv.writer(myFile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+
+                for day in xrange(0, 365 + 1):
+                    if day == 59:
+                        #Skip leap year day February 29.
+                        continue
+
                     row = []
                     for year in xrange(0, (dateMax - dateMin) + 1):
                         row.append(cdfData[year].getAirTemperature(day)[lat][lon])

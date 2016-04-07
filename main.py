@@ -1,18 +1,31 @@
 from loadData import LoadCDFData
 from orca import *
 
-def setupData(time, lat, lon):
+def setupData(day, lat, lon):
     myList = []
-    # + 1 for non-inclusive loop.
-    for year in xrange(1979, 2013 + 1):
-        cdfData = LoadCDFData('/home/csc422/422Data/air.sig995.' + str(year) + '.nc')
-        dp = DataPoint(year, cdfData.getAirTemperature(time)[lat][lon])
+    csvdata = LoadCDFData('/home/csc422/csvdata/lat' + str(lat) + 'lon' + str(lon) + '.csv')
+    for year in xrange(0, 35):
+        dp = DataPoint(year, float(csvdata.data[year][day]))
         myList.append(dp)
     return myList
+
+def main():
+    results = []
+    for lat in xrange(0, 10):
+        for lon in xrange(0, 10):
+            for day in xrange(0, 365):
+                data = setupData(day, lat, lon)
+                orcaResults = orca(7, 5, data)
+                results.append(orcaResults)
+    return results
+
+main()
 
 #def dump(data):
 #    for dp in data:
 #        print "%d,%f" % (dp.getYear(), dp.getTemperature())
 
-#sampleData = setupData(0, 0, 0)
+
+#sampleData = setupData(0, 0, 1)
+#print sampleData
 #print orca(4, 2, sampleData)

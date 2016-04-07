@@ -1,25 +1,27 @@
 from loadData import LoadCDFData
 from orca import *
+import pprocess
+
+NUM_TOP_ANOMALIES = 5
 
 def setupData(day, lat, lon):
     myList = []
     csvdata = LoadCDFData('/home/csc422/csvdata/lat' + str(lat) + 'lon' + str(lon) + '.csv')
     for year in xrange(0, 35):
-        dp = DataPoint(year, float(csvdata.data[year][day]))
+        dp = DataPoint(year, lat, lon, day, float(csvdata.data[year][day]))
         myList.append(dp)
     return myList
 
 def main():
-    results = []
+    results = pprocess.Map(limit = 4)
+    modOrca = results.manage(pprocess.MakeParallel(orca))
     for lat in xrange(0, 10):
         for lon in xrange(0, 10):
             for day in xrange(0, 365):
                 data = setupData(day, lat, lon)
-                orcaResults = orca(7, 5, data)
-                results.append(orcaResults)
-    return results
+                modOrca(7, 5, data)
 
-main()
+    return results
 
 #def dump(data):
 #    for dp in data:

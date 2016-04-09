@@ -24,7 +24,6 @@ def main():
                 data = setupData(day, lat, lon)
                 modOrca(7, 5, data)
 
-#            print "InnerResults: " + str(innerResults[0][0].score)
             # topNumber is 5% of the total number of anomalies returned at
             # one location.
             topNumber = 638 # 365*35*0.05
@@ -36,9 +35,7 @@ def main():
                     # topResults is storage for finding the top 5%.
                     topResults.append(oneResult)
 
-#            print "TopResults: " + str(topResults[0].score)
             sortedResults = sorted(topResults, key=lambda dp: dp.score, reverse=True)
-#            print "SortedResults: " + str(sortedResults[0].score)
 
             for idx in xrange(0, topNumber):
                 finalResults.append(sortedResults[idx])

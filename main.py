@@ -18,18 +18,16 @@ def main():
     outerResults = []
     for lat in xrange(0, 5):
         for lon in xrange(0, 5):
-            innerResults = []
             innerResults = pprocess.Map(limit = 4)
             modOrca = innerResults.manage(pprocess.MakeParallel(orca))
             for day in xrange(0, 365):
                 data = setupData(day, lat, lon)
-                innerResults.append(orca(7, 5, data))
                 modOrca(7, 5, data)
 
 #            print "InnerResults: " + str(innerResults[0][0].score)
             # topNumber is 5% of the total number of anomalies returned at
             # one location.
-            topNumber = 91
+            topNumber = 638 # 365*35*0.05
             finalResults = []
             topResults = []
             for resultList in innerResults:
@@ -54,7 +52,22 @@ def main():
                     row = [1979 + result.getYear(), result.getDay(), result.getTemperature(), result.score]
                     writer.writerow(row)
 
-    return outerResults
+    topNumber = 15968 # 365*35*0.05*73*144
+    finalOuterResults = []
+    outerResults = sorted(outerResults, key=lambda dp: dp.score, reverse=True)
+    for idx in xrange(0, topNumber):
+        finalOuterResults.append(outerResults[idx])
+
+    with open('/home/csc422/topcsvdata/OuterResults.csv', 'w+') as myFile:
+        fieldnames = ['Lat', 'Lon', 'Year', 'Day', 'Temperature', 'Score']
+        writer = csv.writer(myFile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+
+        writer.writerow(fieldnames)
+        for result in finalOuterResults:
+            row = [result.getLatitude(), result.getLongitude(), 1979 + result.getYear(), result.getDay(), result.getTemperature(), result.score]
+            writer.writerow(row)
+
+    return finalResults
 
 #def dump(data):
 #    for dp in data:

@@ -16,8 +16,8 @@ def setupData(day, lat, lon):
 
 def main():
     outerResults = []
-    for lat in xrange(0, 5):
-        for lon in xrange(0, 5):
+    for lat in xrange(0, 20):
+        for lon in xrange(0, 20):
             innerResults = pprocess.Map(limit = 4)
             modOrca = innerResults.manage(pprocess.MakeParallel(orca))
             for day in xrange(0, 365):
@@ -29,16 +29,16 @@ def main():
             topNumber = 638 # 365*35*0.05
             finalResults = []
             topResults = []
-            for resultList in innerResults:
+            for resultList in innerResults: # This line causes error.
                 for oneResult in resultList:
                     outerResults.append(oneResult)
                     # topResults is storage for finding the top 5%.
                     topResults.append(oneResult)
 
-            sortedResults = sorted(topResults, key=lambda dp: dp.score, reverse=True)
+            topResults = sorted(topResults, key=lambda dp: dp.score, reverse=True)
 
             for idx in xrange(0, topNumber):
-                finalResults.append(sortedResults[idx])
+                finalResults.append(topResults[idx])
 
             with open('/home/csc422/topcsvdata/lat' + str(lat) + 'lon' + str(lon) + '.csv', 'w+') as myFile:
                 fieldnames = ['Year', 'Day', 'Temperature', 'Score']
@@ -49,7 +49,7 @@ def main():
                     row = [1979 + result.getYear(), result.getDay(), result.getTemperature(), result.score]
                     writer.writerow(row)
 
-    topNumber = 15968 # 365*35*0.05*73*144
+    topNumber = 255500 # 365*35*0.05*73*144
     finalOuterResults = []
     outerResults = sorted(outerResults, key=lambda dp: dp.score, reverse=True)
     for idx in xrange(0, topNumber):

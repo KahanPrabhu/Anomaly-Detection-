@@ -14,10 +14,10 @@ def setupData(day, lat, lon):
     return myList
 
 
-def main():
+def main(latLowRange, latHighRange, lonLowRange, lonHighRange, direc):
     outerResults = []
-    for lat in xrange(0, 20):
-        for lon in xrange(0, 20):
+    for lat in xrange(latLowRange, latHighRange):
+        for lon in xrange(lonLowRange, lonHighRange):
             innerResults = pprocess.Map(limit = 4)
             modOrca = innerResults.manage(pprocess.MakeParallel(orca))
             for day in xrange(0, 365):
@@ -40,7 +40,7 @@ def main():
             for idx in xrange(0, topNumber):
                 finalResults.append(topResults[idx])
 
-            with open('/home/csc422/topcsvdata/lat' + str(lat) + 'lon' + str(lon) + '.csv', 'w+') as myFile:
+            with open(direc + str(lat) + 'lon' + str(lon) + '.csv', 'w+') as myFile:
                 fieldnames = ['Year', 'Day', 'Temperature', 'Score']
                 writer = csv.writer(myFile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
 
@@ -49,13 +49,13 @@ def main():
                     row = [1979 + result.getYear(), result.getDay(), result.getTemperature(), result.score]
                     writer.writerow(row)
 
-    topNumber = 255500 # 365*35*0.05*73*144
+    topNumber = 365*35*0.05*(latHighRange - latLowRange)*(lonHighRange - lonLowRange) # 365*35*0.05*73*144
     finalOuterResults = []
     outerResults = sorted(outerResults, key=lambda dp: dp.score, reverse=True)
     for idx in xrange(0, topNumber):
         finalOuterResults.append(outerResults[idx])
 
-    with open('/home/csc422/topcsvdata/OuterResults.csv', 'w+') as myFile:
+    with open(direc + 'OuterResults.csv', 'w+') as myFile:
         fieldnames = ['Lat', 'Lon', 'Year', 'Day', 'Temperature', 'Score']
         writer = csv.writer(myFile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
 

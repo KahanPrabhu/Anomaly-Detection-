@@ -14,7 +14,7 @@ def setupData(day, lat, lon):
     return myList
 
 
-def main(latLowRange, latHighRange, lonLowRange, lonHighRange, direc):
+def main(latLowRange, latHighRange, lonLowRange, lonHighRange, direc, count):
     outerResults = []
     for lat in xrange(latLowRange, latHighRange):
         for lon in xrange(lonLowRange, lonHighRange):
@@ -40,7 +40,7 @@ def main(latLowRange, latHighRange, lonLowRange, lonHighRange, direc):
             for idx in xrange(0, topNumber):
                 finalResults.append(topResults[idx])
 
-            with open(direc + str(lat) + 'lon' + str(lon) + '.csv', 'w+') as myFile:
+            with open(direc + 'lat' + str(lat) + 'lon' + str(lon) + '.csv', 'w+') as myFile:
                 fieldnames = ['Year', 'Day', 'Temperature', 'Score']
                 writer = csv.writer(myFile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
 
@@ -49,13 +49,13 @@ def main(latLowRange, latHighRange, lonLowRange, lonHighRange, direc):
                     row = [1979 + result.getYear(), result.getDay(), result.getTemperature(), result.score]
                     writer.writerow(row)
 
-    topNumber = 365*35*0.05*(latHighRange - latLowRange)*(lonHighRange - lonLowRange) # 365*35*0.05*73*144
+    topNumber = int(365*35*0.05*(latHighRange - latLowRange)*(lonHighRange - lonLowRange)) # 365*35*0.05*73*144
     finalOuterResults = []
     outerResults = sorted(outerResults, key=lambda dp: dp.score, reverse=True)
     for idx in xrange(0, topNumber):
         finalOuterResults.append(outerResults[idx])
 
-    with open(direc + 'OuterResults.csv', 'a+') as myFile:
+    with open(direc + 'OuterResults' + count + '.csv', 'w+') as myFile:
         #fieldnames = ['Lat', 'Lon', 'Year', 'Day', 'Temperature', 'Score']
         writer = csv.writer(myFile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
 

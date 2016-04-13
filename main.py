@@ -13,9 +13,7 @@ def setupData(day, lat, lon):
         myList.append(dp)
     return myList
 
-
 def main(latLowRange, latHighRange, lonLowRange, lonHighRange, direc):
-    outerResults = []
     for lat in xrange(latLowRange, latHighRange):
         for lon in xrange(lonLowRange, lonHighRange):
             innerResults = pprocess.Map(limit = 4)
@@ -31,7 +29,6 @@ def main(latLowRange, latHighRange, lonLowRange, lonHighRange, direc):
             topResults = []
             for resultList in innerResults: # This line causes error.
                 for oneResult in resultList:
-                    outerResults.append(oneResult)
                     # topResults is storage for finding the top 5%.
                     topResults.append(oneResult)
 
@@ -48,23 +45,6 @@ def main(latLowRange, latHighRange, lonLowRange, lonHighRange, direc):
                 for result in finalResults:
                     row = [1979 + result.getYear(), result.getDay(), result.getTemperature(), result.score]
                     writer.writerow(row)
-
-    topNumber = 365*35*0.05*(latHighRange - latLowRange)*(lonHighRange - lonLowRange) # 365*35*0.05*73*144
-    finalOuterResults = []
-    outerResults = sorted(outerResults, key=lambda dp: dp.score, reverse=True)
-    for idx in xrange(0, topNumber):
-        finalOuterResults.append(outerResults[idx])
-
-    with open(direc + 'OuterResults.csv', 'w+') as myFile:
-        fieldnames = ['Lat', 'Lon', 'Year', 'Day', 'Temperature', 'Score']
-        writer = csv.writer(myFile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-
-        writer.writerow(fieldnames)
-        for result in finalOuterResults:
-            row = [result.getLatitude(), result.getLongitude(), 1979 + result.getYear(), result.getDay(), result.getTemperature(), result.score]
-            writer.writerow(row)
-
-    return finalResults
 
 #def dump(data):
 #    for dp in data:

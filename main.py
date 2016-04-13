@@ -56,10 +56,10 @@ def main(latLowRange, latHighRange, lonLowRange, lonHighRange, direc):
         finalOuterResults.append(outerResults[idx])
 
     with open(direc + 'OuterResults.csv', 'a+') as myFile:
-        fieldnames = ['Lat', 'Lon', 'Year', 'Day', 'Temperature', 'Score']
+        #fieldnames = ['Lat', 'Lon', 'Year', 'Day', 'Temperature', 'Score']
         writer = csv.writer(myFile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
 
-        writer.writerow(fieldnames)
+        #writer.writerow(fieldnames)
         for result in finalOuterResults:
             row = [result.getLatitude(), result.getLongitude(), 1979 + result.getYear(), result.getDay(), result.getTemperature(), result.score]
             writer.writerow(row)

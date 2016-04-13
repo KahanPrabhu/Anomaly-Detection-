@@ -55,7 +55,7 @@ def main(latLowRange, latHighRange, lonLowRange, lonHighRange, direc, count):
     for idx in xrange(0, topNumber):
         finalOuterResults.append(outerResults[idx])
 
-    with open(direc + 'OuterResults' + count + '.csv', 'w+') as myFile:
+    with open(direc + 'OuterResults' + int(count) + '.csv', 'w+') as myFile:
         #fieldnames = ['Lat', 'Lon', 'Year', 'Day', 'Temperature', 'Score']
         writer = csv.writer(myFile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
 

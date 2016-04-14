@@ -31,11 +31,12 @@ def main(latLowRange, latHighRange, lonLowRange, lonHighRange, direc, count):
             topResults = []
             for resultList in innerResults: # This line causes error.
                 for oneResult in resultList:
-                    outerResults.append(oneResult)
+                    dp = (oneResult.getYear(), oneResult.getTemperature(), oneResult.getLatitude(), oneResult.getLongitude(), oneResult.getDay(), oneResult.score)
+                    outerResults.append(dp)
                     # topResults is storage for finding the top 5%.
-                    topResults.append(oneResult)
+                    topResults.append(dp)
 
-            topResults = sorted(topResults, key=lambda dp: dp.score, reverse=True)
+            topResults = sorted(topResults, key=lambda dp: dp[5], reverse=True)
 
             for idx in xrange(0, topNumber):
                 finalResults.append(topResults[idx])
@@ -46,22 +47,22 @@ def main(latLowRange, latHighRange, lonLowRange, lonHighRange, direc, count):
 
                 writer.writerow(fieldnames)
                 for result in finalResults:
-                    row = [1979 + result.getYear(), result.getDay(), result.getTemperature(), result.score]
+                    row = [1979 + result[0], result[4], result[1], result[5]]
                     writer.writerow(row)
 
     topNumber = int(365*35*0.05*(latHighRange - latLowRange)*(lonHighRange - lonLowRange)) # 365*35*0.05*73*144
     finalOuterResults = []
-    outerResults = sorted(outerResults, key=lambda dp: dp.score, reverse=True)
+    outerResults = sorted(outerResults, key=lambda dp: dp[5], reverse=True)
     for idx in xrange(0, topNumber):
         finalOuterResults.append(outerResults[idx])
 
-    with open(direc + 'OuterResults' + int(count) + '.csv', 'w+') as myFile:
+    with open(direc + 'OuterResults' + str(count) + '.csv', 'w+') as myFile:
         #fieldnames = ['Lat', 'Lon', 'Year', 'Day', 'Temperature', 'Score']
         writer = csv.writer(myFile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
 
         #writer.writerow(fieldnames)
         for result in finalOuterResults:
-            row = [result.getLatitude(), result.getLongitude(), 1979 + result.getYear(), result.getDay(), result.getTemperature(), result.score]
+            row = [result[2], result[3], 1979 + result[0], result[4], result[1], result[5]]
             writer.writerow(row)
 
     return finalResults

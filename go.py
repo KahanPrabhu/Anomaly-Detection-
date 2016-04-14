@@ -1,8 +1,19 @@
 from main import main
 
-"""
-for x in xrange(1, 73):
-    print "Running for latitude", str(x)
-    main(x - 1, x, 0, 144, '/home/csc422/topcsvdata/', x)
-"""
-main(0, 47, 0, 35, 'topcsvdata/', 0)
+#Scott
+#main(0, 35, 0, 47, 'topcsvdata/', 0)
+
+#Chandler
+#main(0, 35, 48, 95, 'topcsvdata/', 1)
+
+#Sumeet
+#main(0, 35, 96, 143, 'topcsvdata/', 2)
+
+#Anshul
+#main(36, 72, 0, 47, 'topcsvdata/', 3)
+
+#Kahan
+#main(36, 72, 48, 95, 'topcsvdata/', 4)
+
+#Berg
+#main(36, 72, 96, 143, 'topcsvdata/', 5)

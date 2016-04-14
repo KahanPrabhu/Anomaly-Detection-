@@ -9,5 +9,5 @@
 * `conda env create -f anomaly-detection.yml`
 * `source activate anomaly-detection`
   * You are now in the anaconda environment with the required packages installed.
-* Make any necessary changes to `go.py`.
-* Run the algorithm using `python go.py`.
+* Make any necessary changes to `go.py`. Adjust the number of threads in `main.py`.
+* Run the algorithm using `screen -S anomaly-detection python go.py`. Press CTRL + AD to detach the screen. It is now safe to exit your ssh session.

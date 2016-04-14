@@ -18,7 +18,7 @@ def main(latLowRange, latHighRange, lonLowRange, lonHighRange, direc, count):
     outerResults = []
     for lat in xrange(latLowRange, latHighRange):
         for lon in xrange(lonLowRange, lonHighRange):
-            innerResults = pprocess.Map(limit = 4)
+            innerResults = pprocess.Map(limit = 8)
             modOrca = innerResults.manage(pprocess.MakeParallel(orca))
             for day in xrange(0, 365):
                 data = setupData(day, lat, lon)

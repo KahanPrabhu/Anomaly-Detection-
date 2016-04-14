@@ -7,7 +7,7 @@ NUM_TOP_ANOMALIES = 5
 
 def setupData(day, lat, lon):
     myList = []
-    csvdata = LoadCDFData('/home/csc422/csvdata/lat' + str(lat) + 'lon' + str(lon) + '.csv')
+    csvdata = LoadCDFData('csvdata/' + str(lat) + 'lon' + str(lon) + '.csv')
     for year in xrange(0, 35):
         dp = DataPoint(year, float(csvdata.data[year][day]), lat, lon, day)
         myList.append(dp)

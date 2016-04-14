@@ -1,8 +1,8 @@
 import csv
 from datapoint import DataPoint
 
-topFile = '/home/csc422/topcsvdata/'
-destinationFile = '/home/csc422/topcsvmatrices/'
+topFile = 'topcsvdata/'
+destinationFile = 'topcsvmatrices/'
 
 def postprocess():
     dataPoints = []

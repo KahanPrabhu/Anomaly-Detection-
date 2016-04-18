@@ -10,7 +10,7 @@ from main import main
 #main(0, 36, 96, 144, 'topcsvdata/', 2)
 
 #Anshul
-#main(36, 73, 0, 48, 'topcsvdata/', 3)
+main(36, 73, 0, 48, 'topcsvdata/', 3)
 
 #Kahan
 #main(36, 73, 48, 96, 'topcsvdata/', 4)

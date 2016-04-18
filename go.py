@@ -7,7 +7,7 @@ from main import main
 #main(0, 36, 48, 96, 'topcsvdata/', 1)
 
 #Sumeet
-main(0, 36, 96, 144, 'topcsvdata/', 2)
+#main(0, 36, 96, 144, 'topcsvdata/', 2)
 
 #Anshul
 #main(36, 73, 0, 48, 'topcsvdata/', 3)

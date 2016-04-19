@@ -11,7 +11,7 @@ def postprocess():
     currentLine = 0
     # Initialize tabular data with zeros. This is basically pre-allocating our data.
     # Tabular data = data with rows and columns. Think of a SQL table.
-    data = np.zeros((lines,), dtype=[('Year', 'int8'),('Day', 'int8'),('Lat', 'int8'),('Lon', 'int8')])
+    data = np.zeros((lines,), dtype=[('Year', 'int'),('Day', 'int'),('Lat', 'int'),('Lon', 'int')])
     # Open our outer results file.
     with open(topFile + 'OuterResults.csv', 'r') as myFile:
         # Open a CSV reader on the file handler.
@@ -39,7 +39,7 @@ def postprocess():
                 print "Checking Year" + str(year) + ", day" + str(day)
 
                 # Divide our anomalies into a smaller chunk by year and day.
-                smallDF = dataF[((dataF['Year'] == year) & (dataF['Day'] == day))]
+                smallDF = dataF[((dataF['Year'] == (year + 1979)) & (dataF['Day'] == day))]
 
                 # For every latitude in this day of this year...
                 for lat in xrange(0, 72):

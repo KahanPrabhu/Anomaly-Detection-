@@ -43,7 +43,7 @@ for( i in 0:34){
                 mapGriddedData(day,borderCol="black",numCats=20, colourPalette=c('white','red'),catMethod = "categorical")
                 
                 #write the title as the day and year
-                title(paste('Day ',i,' Year ',j,sep = ""))
+                title(paste('Day ',j,' Year ',i,sep = ""))
                 dev.off()
         }
 }

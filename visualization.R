@@ -1,10 +1,3 @@
-#daily pure surface temperatures plotted as heatmap on world
-#####################################################
-#Author: Bharathkumar Ramachandra/tnybny            #
-#Krishna Karthik Gadiraju/kgadira                   #
-#MonsterRidges project                              #
-#####################################################
-
 #clear workspace
 rm(list=ls(all=T))
 
@@ -16,15 +9,19 @@ require(rworldmap) #for mapGriddedData
 require(jpeg)
 
 #read matfile
-parent<-"C:/R/"
+parent<-"C:/Users/jcgsv/Documents/GitHub/Anomaly-Detection-/topcsvmatrices/"
+parent2<-"C:/Users/jcgsv/Documents/GitHub/Anomaly-Detection-/topcsvplot/"
 #plots<- "~/ORNL/MonsterRidges/MonsterRidges/"
 
 #create jpeg file
-jpegfile<-paste(parent,"plot%03d.jpg",sep="")
-jpeg(jpegfile,width=1024,height=1024)
-        filename<-paste(parent,"data.csv",sep="")
-        print(filename)
-        data<-read.csv(filename)
+for( i in 0:34){
+        for(j in 0:364){
+                jpegfile<-paste(parent2,"p",i,"-",j,".jpg",sep="")
+                jpeg(jpegfile,width=1024,height=1024)
+                
+                filename<-paste(parent,i,"-",j,".csv",sep="")
+                print(filename)
+                data<-read.csv(filename,header = F)
                 #Extract just the surface temperatures from the data
                 #this is a 3-D numeric vector of dimensions 366 x 73 x 144
                 #a 73x144 lat-long grid for each day of the year of 1948
@@ -46,5 +43,7 @@ jpeg(jpegfile,width=1024,height=1024)
                 mapGriddedData(day,borderCol="black",numCats=20, colourPalette=c('white','red'),catMethod = "categorical")
                 
                 #write the title as the day and year
-                title('DayYear')
-dev.off()
+                title(paste('Day ',i,' Year ',j,sep = ""))
+                dev.off()
+        }
+}
